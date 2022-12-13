@@ -24,19 +24,27 @@
                     <th scope="col">Nama</th>
                     <th scope="col">Kelas</th>
                     <th scope="col">Alamat</th>
-                    <th scope="col">Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td><button type="button" class="btn btn-primary">Edit</button></td>
-                    <td><button type="button" class="btn btn-danger">Delete</button></td>
-                </tr>
-            </tbody>
+            <?php
+            include "config.php";
+            $no = 1;
+            $data = mysqli_query($connect, "select * from siswa")or die (mysqli_error($connect));
+            while ($tampil = mysqli_fetch_array($data)){
+              echo" <tbody>
+              <tr>
+                  <th>$no</th>
+                  <td>$tampil[nama_siswa]</td>
+                  <td>$tampil[kelas]</td>
+                  <td>$tampil[alamat_siswa]</td>
+                  <td><button type='button' class='btn btn-primary'>Edit</button></td>
+                  <td><button type='button' class='btn btn-danger'>Delete</button></td>
+              </tr>
+          </tbody>";
+          $no++;
+            }
+            ?>
+
         </table>
     </div>
 
