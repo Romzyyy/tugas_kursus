@@ -22,15 +22,15 @@ $data = mysqli_fetch_array($sql)
         <form action="" method="post">
             <div class="mb-3">
                 <label class="form-label">Nama Siswa</label>
-                <input type="text" class="form-control" name="nama_siswa" value="<?php echo $data['nama_siswa']?>">
+                <input type="text" class="form-control" name="nama_siswa" value="<?php echo $data['nama_siswa'];?>">
             </div>
             <div class="mb-3">
                 <label class="form-label">Kelas</label>
-                <input type="text" class="form-control" name="kelas" value="<?php echo $data['kelas']?>">
+                <input type="text" class="form-control" name="kelas" value="<?php echo $data['kelas'];?>">
             </div>
             <div class="mb-3">
                 <label class="form-label">Alamat</label>
-                <input type="text" class="form-control" name="alamat_siswa" value="<?php echo $data['alamat_siswa']?>">
+                <input type="text" class="form-control" name="alamat_siswa" value="<?php echo $data['alamat_siswa'];?>">
             </div>
             <button type="submit" class="btn btn-primary" name="proses">simpan</button>
         </form>
@@ -46,12 +46,12 @@ $data = mysqli_fetch_array($sql)
 include "config.php";
 
 if(isset($_POST['proses'])){
-    mysqli_query($connect,"update siswa set
+    mysqli_query($connect,"update siswa set 
     nama_siswa = '$_POST[nama_siswa]',
     kelas = '$_POST[kelas]',
-    alamat_siswa = '$_POST[alamat_siswa]',
-    where id = '$_GET[kode]'");
-    echo "<p class='width-100 text-center mt-5'>Data berhasil di ubah</p>";
-    echo "<meta http-equiv=refresh content=1;URL='index.php'";
+    alamat_siswa = '$_POST[alamat_siswa]'
+    where id = '$_GET[kode]'")or die (mysqli_error($connect));
+    echo "<p class='width-100 text-center mt-5'>Data telah tersimpan</p>";
+    echo "<meta http-equiv=refresh content=2;URL='index.php'";
 }
 ?>

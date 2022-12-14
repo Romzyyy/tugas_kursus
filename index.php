@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <!doctype html>
 <html lang="en">
 
@@ -17,6 +14,7 @@
         <h1 class="text-center mt-5 mb-5">Data Siswa</h1>
         <div class="container-fluid w-75 position-relative">
             <a class="btn btn-success" href="tambah_siswa.php" role="button">Add New</a>
+            <a class="btn btn-warning" href="tambah_siswa.php" role="button">Upload file</a>
             <table class="table position-absolute top-0 start-50 translate-middle-x mt-5 text-center">
                 <thead>
                     <tr>
