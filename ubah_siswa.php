@@ -1,3 +1,9 @@
+<?php
+include "config.php";
+$sql = mysqli_query($connect, "select * from siswa where id='$_GET[kode]'");
+$data = mysqli_fetch_array($sql)
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,19 +18,19 @@
 
 <body>
     <div class="container-fluid w-25 mt-5">
-        <h1 class="text-center mt-5 mb-5">Tambah Siswa</h1>
+        <h1 class="text-center mt-5 mb-5">Ubah Data Siswa</h1>
         <form action="" method="post">
             <div class="mb-3">
                 <label class="form-label">Nama Siswa</label>
-                <input type="text" class="form-control" name="nama_siswa">
+                <input type="text" class="form-control" name="nama_siswa" value="<?php echo $data['nama_siswa']?>">
             </div>
             <div class="mb-3">
                 <label class="form-label">Kelas</label>
-                <input type="text" class="form-control" name="kelas">
+                <input type="text" class="form-control" name="kelas" value="<?php echo $data['kelas']?>">
             </div>
             <div class="mb-3">
                 <label class="form-label">Alamat</label>
-                <input type="text" class="form-control" name="alamat_siswa">
+                <input type="text" class="form-control" name="alamat_siswa" value="<?php echo $data['alamat_siswa']?>">
             </div>
             <button type="submit" class="btn btn-primary" name="proses">simpan</button>
         </form>
@@ -40,11 +46,12 @@
 include "config.php";
 
 if(isset($_POST['proses'])){
-    mysqli_query($connect,"insert into siswa set 
+    mysqli_query($connect,"update siswa set
     nama_siswa = '$_POST[nama_siswa]',
     kelas = '$_POST[kelas]',
-    alamat_siswa = '$_POST[alamat_siswa]'") or die (mysqli_error($connect));
-    echo "<p class='width-100 text-center mt-5'>Data telah tersimpan</p>";
+    alamat_siswa = '$_POST[alamat_siswa]',
+    where id = '$_GET[kode]'");
+    echo "<p class='width-100 text-center mt-5'>Data berhasil di ubah</p>";
     echo "<meta http-equiv=refresh content=1;URL='index.php'";
 }
 ?>

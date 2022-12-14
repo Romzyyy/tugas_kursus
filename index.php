@@ -39,15 +39,14 @@
                   <td>$tampil[kelas]</td>
                   <td>$tampil[alamat_siswa]</td>
                   <td>
-                  <button type='button' class='btn btn-primary'>Edit</button>
-                  <button type='button' class='btn btn-danger'>Delete</button>
+                  <a class='btn btn-primary' href='ubah_siswa.php?kode=$tampil[id]' role='button'>Edit</a>
+                  <a class='btn btn-danger' href='?kode=$tampil[id]' role='button'>Delete</a>
                   </td>              
               </tr>
           </tbody>";
           $no++;
             }
             ?>
-
             </table>
         </div>
     </div>
@@ -57,3 +56,10 @@
 </body>
 
 </html>
+<?php
+include "config.php";
+if(isset($_GET['kode'])){
+mysqli_query($connect, "delete from siswa where id='$_GET[kode]'");
+echo "<meta http-equiv=refresh content=1;URL='index.php'";
+}
+?>
