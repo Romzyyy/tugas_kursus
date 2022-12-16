@@ -23,27 +23,18 @@
 </body>
 
 </html>
-<!-- <?php
-include "config.php";
-if(isset($_POST['proses'])){
-$directory = "file/";
-$file_name = $_FILES['NamaFile']['name'];
-$tmpFile = $_FILES['file_name']['tmp_name'];
-move_uploaded_file('tmp_name',$directory.$file_name);
-mysqli_query($connect, "insert into document set file='$file_name'");
-echo "<p class='width-100 text-center mt-5'>file berhasil tersimpan</p>";
-}
-?> -->
 <?php
 include "config.php";
+
 if(isset($_POST['proses'])){
-    $nama = $_FILES['NamaFile']['name'];
-    $tmp = $_FILES['NamaFile']['tmp_name'];
-    $dir = "file/";
-    if(copy($tmp, $dir.$nama)){
-        echo "Upload Berhasil";
-    }else {
-        echo "Upload Gagal";
-    }
+    
+$directory = "files/";
+$file_name = $_FILES['NamaFile']['name'];
+move_uploaded_file($_FILES['NamaFile']['tmp_name'], $directory.$file_name);
+
+mysqli_query($connect, "insert into document set file='$file_name'") or die (mysqli_error($connect));
+
+echo "<p class='width-100 text-center mt-5'>file berhasil tersimpan</p>";
+
 }
 ?>
