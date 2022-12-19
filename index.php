@@ -21,6 +21,7 @@
                         <th scope="col">Nama</th>
                         <th scope="col">Kelas</th>
                         <th scope="col">Alamat</th>
+                        <th scope="col">Foto</th>
                         <th scope="col text-center">Action</th>
                     </tr>
                 </thead>
@@ -31,11 +32,12 @@
             while ($tampil = mysqli_fetch_array($data)){
               echo" <tbody>
               <tr>
-                  <th>$no</th>
-                  <td>$tampil[nama_siswa]</td>
-                  <td>$tampil[kelas]</td>
-                  <td>$tampil[alamat_siswa]</td>
-                  <td>
+                  <th class='align-middle'>$no</th>
+                  <td class='align-middle'>$tampil[nama_siswa]</td>
+                  <td class='align-middle'>$tampil[kelas]</td>
+                  <td class='align-middle'>$tampil[alamat_siswa]</td>
+                  <td class='align-middle' style='width:10%'><img class='rounded' style='width:70px; height:70px' src='files/$tampil[file]'></td>
+                  <td class='align-middle' style='width:20%'>
                   <a class='btn btn-primary' href='ubah_siswa.php?kode=$tampil[id]' role='button'>Edit</a>
                   <a class='btn btn-danger' href='?kode=$tampil[id]' role='button'>Delete</a>
                   </td>              
