@@ -42,9 +42,9 @@
 </html>
 <?php
 include "config.php";
-$nama_siswa = '$_POST[nama_siswa]';
-$kelas = '$_POST[kelas]';
-$alamat_siswa = '$_POST[alamat_siswa]';
+$nama_siswa = $_POST['nama_siswa'];
+$kelas = $_POST['kelas'];
+$alamat_siswa = $_POST['alamat_siswa'];
 
 $rand = rand();
 $ekstensi = array('png','jpg','jpeg','gif');
@@ -52,16 +52,16 @@ $filename = $_FILES['foto']['name'];
 $ukuran = $_FILES['foto']['size'];
 $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-// if(!in_array($ext,$ekstensi)) {
-//     header("location:index.php?alert=gagal_ekstensi");
-// }else{
+if(!in_array($ext,$ekstensi)) {
+    header("location:index.php?alert=gagal_ekstensi");
+}else{
     if($ukuran < 1044070){
         $xx = $rand.'_'.$filename;
 		move_uploaded_file($_FILES['foto']['tmp_name'], 'files/'.$rand.'_'.$filename);
-		mysqli_query($connect, "INSERT INTO user VALUES(NULL,'$nama_siswa','$kelas','$alamat_siswa','$xx')");
+		mysqli_query($connect, "INSERT INTO siswa VALUES(NULL,'$nama_siswa','$kelas','$alamat_siswa','$xx')");
 		header("location:index.php?alert=berhasil");
 	}else{
 		header("location:index.php?alert=gagal_ukuran");
     }
-// }
+}
 ?>
