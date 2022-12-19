@@ -13,7 +13,7 @@
 <body>
     <div class="container-fluid w-25 mt-5">
         <h1 class="text-center mt-5 mb-5">Tambah Siswa</h1>
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Nama Siswa</label>
                 <input type="text" class="form-control" name="nama_siswa">
@@ -25,6 +25,10 @@
             <div class="mb-3">
                 <label class="form-label">Alamat</label>
                 <input type="text" class="form-control" name="alamat_siswa">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Chose file</label>
+                <input type="file" class="form-control" name="foto">
             </div>
             <button type="submit" class="btn btn-primary" name="proses">simpan</button>
         </form>
@@ -38,13 +42,26 @@
 </html>
 <?php
 include "config.php";
+$nama_siswa = '$_POST[nama_siswa]';
+$kelas = '$_POST[kelas]';
+$alamat_siswa = '$_POST[alamat_siswa]';
 
-if(isset($_POST['proses'])){
-    mysqli_query($connect,"insert into siswa set 
-    nama_siswa = '$_POST[nama_siswa]',
-    kelas = '$_POST[kelas]',
-    alamat_siswa = '$_POST[alamat_siswa]'") or die (mysqli_error($connect));
-    echo "<p class='width-100 text-center mt-5'>Data telah tersimpan</p>";
-    echo "<meta http-equiv=refresh content=1;URL='index.php'";
-}
+$rand = rand();
+$ekstensi = array('png','jpg','jpeg','gif');
+$filename = $_FILES['foto']['name'];
+$ukuran = $_FILES['foto']['size'];
+$ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+// if(!in_array($ext,$ekstensi)) {
+//     header("location:index.php?alert=gagal_ekstensi");
+// }else{
+    if($ukuran < 1044070){
+        $xx = $rand.'_'.$filename;
+		move_uploaded_file($_FILES['foto']['tmp_name'], 'files/'.$rand.'_'.$filename);
+		mysqli_query($connect, "INSERT INTO user VALUES(NULL,'$nama_siswa','$kelas','$alamat_siswa','$xx')");
+		header("location:index.php?alert=berhasil");
+	}else{
+		header("location:index.php?alert=gagal_ukuran");
+    }
+// }
 ?>
