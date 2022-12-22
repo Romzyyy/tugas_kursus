@@ -1,9 +1,3 @@
-<?php
-include "config.php";
-$sql = mysqli_query($connect, "select * from siswa where id='$_GET[kode]'");
-$data = mysqli_fetch_array($sql)
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,19 +12,23 @@ $data = mysqli_fetch_array($sql)
 
 <body>
     <div class="container-fluid w-25 mt-5">
-        <h1 class="text-center mt-5 mb-5">Ubah Data Siswa</h1>
-        <form action="" method="post">
+        <h1 class="text-center mt-5 mb-5">Tambah Siswa</h1>
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Nama Siswa</label>
-                <input type="text" class="form-control" name="nama_siswa" value="<?php echo $data['nama_siswa'];?>">
+                <input type="text" class="form-control" name="nama_siswa">
             </div>
             <div class="mb-3">
                 <label class="form-label">Kelas</label>
-                <input type="text" class="form-control" name="kelas" value="<?php echo $data['kelas'];?>">
+                <input type="text" class="form-control" name="kelas">
             </div>
             <div class="mb-3">
                 <label class="form-label">Alamat</label>
-                <input type="text" class="form-control" name="alamat_siswa" value="<?php echo $data['alamat_siswa'];?>">
+                <input type="text" class="form-control" name="alamat_siswa">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Chose file</label>
+                <input type="file" class="form-control" name="NamaFile">
             </div>
             <button type="submit" class="btn btn-primary" name="proses">simpan</button>
         </form>
@@ -44,14 +42,16 @@ $data = mysqli_fetch_array($sql)
 </html>
 <?php
 include "config.php";
-
 if(isset($_POST['proses'])){
-    mysqli_query($connect,"update siswa set 
+    $dir = "files/";
+    $file_name = $_FILES['NamaFile']['name'];
+    move_uploaded_file($_FILES['NamaFile']['tmp_name'], $dir.$file_name);
+    mysqli_query($connect, "INSERT INTO siswa set 
     nama_siswa = '$_POST[nama_siswa]',
     kelas = '$_POST[kelas]',
-    alamat_siswa = '$_POST[alamat_siswa]'
-    where id = '$_GET[kode]'")or die (mysqli_error($connect));
-    echo "<p class='width-100 text-center mt-5'>Data telah tersimpan</p>";
-    echo "<meta http-equiv=refresh content=2;URL='index.php'";
+    alamat_siswa = '$_POST[alamat_siswa]',
+    file = '$file_name'") or die (mysqli_error($connect));
+    header("location:data.php");
 }
+
 ?>
